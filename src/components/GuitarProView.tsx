@@ -16,8 +16,13 @@ export function GuitarProView({ file, selectedTrackIds, notationMode, zoom, onTr
         player: { enablePlayer: false, enableCursor: false }
       });
       api.current = instance;
-      instance.scoreLoaded.on(score => { onTracks(score.tracks.map((track, index) => ({ index, name: track.name || `Spur ${index + 1}`, program: track.playbackInfo.program }))); setLoading(false); });
-      instance.error.on(event => { console.error(event); setError('Die Guitar-Pro-Datei konnte nicht gelesen werden.'); });
+      instance.scoreLoaded.on(score => {
+        onTracks(score.tracks.map((track, index) => ({ index, name: track.name || `Spur ${index + 1}`, program: track.playbackInfo.program })));
+        const selected = selectedTrackIds.length ? score.tracks.filter(track => selectedTrackIds.includes(track.index)) : score.tracks;
+        instance.renderTracks(selected);
+      });
+      instance.renderFinished.on(() => setLoading(false));
+      instance.error.on(event => { console.error(event); setError('Die Guitar-Pro-Datei konnte nicht gelesen werden.'); setLoading(false); });
       void file.arrayBuffer().then(buffer => instance.load(new Uint8Array(buffer))).catch(cause => { console.error(cause); setError('Die Guitar-Pro-Datei konnte nicht gelesen werden.'); setLoading(false); });
     } catch (cause) { console.error(cause); setError('alphaTab konnte nicht initialisiert werden.'); }
     return () => { api.current?.destroy(); api.current = null; };
