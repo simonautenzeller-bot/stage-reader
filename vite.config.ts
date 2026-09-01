@@ -19,7 +19,7 @@ export default defineConfig({
           { src: 'icons/icon-512.svg', sizes: '512x512', type: 'image/svg+xml', purpose: 'any maskable' }
         ]
       },
-      workbox: { globPatterns: ['**/*.{js,css,html,svg,woff,woff2,eot,otf,mjs}'] }
+      workbox: { globPatterns: ['**/*.{js,css,html,svg,woff,woff2,eot,otf,mjs}'], maximumFileSizeToCacheInBytes: 3 * 1024 * 1024 }
     })
   ]
 });
