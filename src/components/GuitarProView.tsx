@@ -4,6 +4,12 @@ import type { NotationMode } from '../types/models';
 
 interface Track { index: number; name: string; program: number; }
 interface Props { file: Blob; selectedTrackIds: number[]; notationMode: NotationMode; zoom: number; onTracks: (tracks: Track[]) => void; }
+function applyNotationMode(tracks: alphaTab.model.Track[], notationMode: NotationMode): void {
+  for (const track of tracks) for (const staff of track.staves) {
+    staff.showStandardNotation = notationMode !== 'tabs';
+    staff.showTablature = notationMode !== 'standard';
+  }
+}
 export function GuitarProView({ file, selectedTrackIds, notationMode, zoom, onTracks }: Props) {
   const host = useRef<HTMLDivElement>(null); const api = useRef<alphaTab.AlphaTabApi | null>(null); const [error, setError] = useState<string>(); const [loading, setLoading] = useState(true);
   useEffect(() => {
@@ -19,6 +25,7 @@ export function GuitarProView({ file, selectedTrackIds, notationMode, zoom, onTr
       instance.scoreLoaded.on(score => {
         onTracks(score.tracks.map((track, index) => ({ index, name: track.name || `Spur ${index + 1}`, program: track.playbackInfo.program })));
         const selected = selectedTrackIds.length ? score.tracks.filter(track => selectedTrackIds.includes(track.index)) : score.tracks;
+        applyNotationMode(selected, notationMode);
         instance.renderTracks(selected);
       });
       instance.renderFinished.on(() => setLoading(false));
@@ -27,6 +34,6 @@ export function GuitarProView({ file, selectedTrackIds, notationMode, zoom, onTr
     } catch (cause) { console.error(cause); setError('alphaTab konnte nicht initialisiert werden.'); }
     return () => { api.current?.destroy(); api.current = null; };
   }, [file, zoom, onTracks]);
-  useEffect(() => { const instance = api.current; if (instance?.score) { const selected = selectedTrackIds.length ? instance.score.tracks.filter(track => selectedTrackIds.includes(track.index)) : instance.score.tracks; instance.renderTracks(selected); } }, [selectedTrackIds, notationMode]);
+  useEffect(() => { const instance = api.current; if (instance?.score) { const selected = selectedTrackIds.length ? instance.score.tracks.filter(track => selectedTrackIds.includes(track.index)) : instance.score.tracks; applyNotationMode(selected, notationMode); instance.renderTracks(selected); } }, [selectedTrackIds, notationMode]);
   return <div className="document gp-document">{error ? <p className="reader-error">{error}</p> : <>{loading && <p className="reader-loading">Guitar-Pro-Partitur wird gerendert ...</p>}<div ref={host} /></>}</div>;
 }
