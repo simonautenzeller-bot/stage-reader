@@ -1,0 +1,5 @@
+import { beforeEach, describe, expect, it } from 'vitest';
+import { db, findSongByOriginalFileName, saveReadingPosition } from './database';
+import type { Song } from '../types/models';
+const record: Song = { id: 'test-song', title: 'Test', originalFileName: 'test.pdf', fileType: 'pdf', mimeType: 'application/pdf', fileBlob: new Blob(['%PDF-']), fileSize: 5, importedAt: 1, lastOpenedAt: null, isFavorite: false, currentPage: 1, scrollPosition: 0, zoomLevel: 1, displayMode: 'page', selectedTrackIds: [], notationMode: 'both' };
+describe('IndexedDB', () => { beforeEach(async () => { await db.songs.clear(); }); it('speichert eine Leseposition', async () => { await db.songs.put(record); await saveReadingPosition(record.id, { currentPage: 3, scrollPosition: 120, zoomLevel: 1.2, displayMode: 'offset', selectedTrackIds: [], notationMode: 'both' }); expect((await db.songs.get(record.id))?.currentPage).toBe(3); }); it('findet Songs ohne Abhaengigkeit von einem Sekundaerindex', async () => { await db.songs.put(record); expect((await findSongByOriginalFileName('test.pdf'))?.id).toBe(record.id); }); });
