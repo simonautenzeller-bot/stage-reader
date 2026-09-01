@@ -18,7 +18,7 @@ export function GuitarProView({ file, selectedTrackIds, notationMode, zoom, onTr
       setError(undefined); setLoading(true); host.current.replaceChildren();
       const instance = new alphaTab.AlphaTabApi(host.current, {
         core: { fontDirectory: `${import.meta.env.BASE_URL}alphatab/font/`, useWorkers: false },
-        display: { layoutMode: alphaTab.LayoutMode.Horizontal, scale: zoom },
+        display: { layoutMode: alphaTab.LayoutMode.Page, scale: zoom },
         player: { enablePlayer: false, enableCursor: false }
       });
       api.current = instance;
