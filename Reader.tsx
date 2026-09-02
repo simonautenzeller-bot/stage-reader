@@ -6,14 +6,14 @@ import type { DisplayMode, NotationMode, Setlist, Song } from '../types/models';
 import { PdfView } from './PdfView';
 import { GuitarProView } from './GuitarProView';
 
-const readerVersion = 'v2026.09.01.5';
+const readerVersion = 'v2026.09.02.1';
 
 export function Reader() {
   const { id } = useParams(); const navigate = useNavigate(); const [searchParams] = useSearchParams(); const [song, setSong] = useState<Song>(); const [setlist, setSetlist] = useState<Setlist>(); const [pages, setPages] = useState(1); const [menu, setMenu] = useState(true); const [documentTheme, setDocumentTheme] = useState('white'); const [offsetStep, setOffsetStep] = useState(50); const [tracks, setTracks] = useState<{ index: number; name: string; program: number }[]>([]); const container = useRef<HTMLDivElement>(null); const header = useRef<HTMLElement>(null); const pointer = useRef<{ x: number; y: number; multi: boolean } | undefined>(undefined);
   useEffect(() => { void (async () => { const loaded = id ? await db.songs.get(id) : undefined; if (!loaded) { navigate('/'); return; } const listId = searchParams.get('setlist'); setSetlist(listId ? await db.setlists.get(listId) : undefined); const settings = await getSettings(); setDocumentTheme(settings.documentTheme); setOffsetStep(settings.offsetStep); const updated = { ...loaded, lastOpenedAt: Date.now() }; await db.songs.put(updated); setSong(updated); try { await navigator.wakeLock?.request('screen'); } catch { /* optional browser feature */ } })(); }, [id, navigate, searchParams]);
   const update = (changes: Partial<Song>) => { if (!song) return; const next = { ...song, ...changes }; setSong(next); void saveReadingPosition(next.id, next); };
   const scrollDistance = (percentage: number) => offsetDistance(container.current?.clientHeight ?? innerHeight, percentage);
-  const gpPageDistance = () => { const visibleHeight = (container.current?.clientHeight ?? innerHeight) - (header.current?.offsetHeight ?? 0); return Math.max(1, Math.round(visibleHeight * 0.45)); };
+  const gpPageDistance = () => Math.max(1, (container.current?.clientHeight ?? innerHeight) - (header.current?.offsetHeight ?? 0));
   const go = (direction: -1 | 1) => { if (!song) return; const motion = matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'; if (song.fileType === 'guitar-pro') { container.current?.scrollBy({ top: direction * gpPageDistance(), behavior: 'auto' }); return; } if (song.displayMode === 'continuous') { container.current?.scrollBy({ top: direction * scrollDistance(75), behavior: motion }); return; } if (song.displayMode === 'offset') { container.current?.scrollBy({ top: direction * scrollDistance(offsetStep), behavior: motion }); return; } update({ currentPage: Math.max(1, Math.min(pages, song.currentPage + direction)) }); };
   useEffect(() => { const keyboard = (event: KeyboardEvent) => { if (event.key === 'Escape') menu ? setMenu(false) : navigate('/'); if (['ArrowRight', 'PageDown', ' '].includes(event.key)) { event.preventDefault(); go(1); } if (['ArrowLeft', 'PageUp'].includes(event.key)) { event.preventDefault(); go(-1); } }; addEventListener('keydown', keyboard); return () => removeEventListener('keydown', keyboard); });
   if (!song) return <main className="reader-loading">Partitur wird geöffnet ...</main>;
