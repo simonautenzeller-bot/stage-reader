@@ -6,5 +6,9 @@ import { App } from './App';
 import { Reader } from './components/Reader';
 import './styles.css';
 
-registerSW({ onNeedRefresh() { if (confirm('Eine neue App-Version ist verfügbar. Jetzt laden?')) window.location.reload(); } });
+const updateServiceWorker = registerSW({
+	onNeedRefresh() {
+		if (confirm('Eine neue App-Version ist verfügbar. Jetzt laden?')) updateServiceWorker(true);
+	}
+});
 createRoot(document.getElementById('root')!).render(<StrictMode><HashRouter><Routes><Route path="/" element={<App />} /><Route path="/reader/:id" element={<Reader />} /></Routes></HashRouter></StrictMode>);
