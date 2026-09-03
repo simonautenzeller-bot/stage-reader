@@ -273,7 +273,7 @@ canvas {
   min-width: 0;
   justify-content: stretch;
 }
-.gp-document > div {
+.gp-host {
   width: 100%;
 }
 .reader-error,

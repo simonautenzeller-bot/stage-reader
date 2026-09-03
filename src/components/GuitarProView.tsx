@@ -51,5 +51,5 @@ export function GuitarProView({ file, selectedTrackIds, notationMode, zoom, onTr
     return () => { api.current?.destroy(); api.current = null; };
   }, [file, zoom, rowBars, onTracks]);
   useEffect(() => { const instance = api.current; if (instance?.score) { const selected = selectedTrackIds.length ? instance.score.tracks.filter(track => selectedTrackIds.includes(track.index)) : instance.score.tracks; applyNotationMode(selected, notationMode); instance.renderTracks(selected); } }, [selectedTrackIds, notationMode]);
-  return <div className="document gp-document">{error ? <p className="reader-error">{error}</p> : <>{loading && <p className="reader-loading">Guitar-Pro-Partitur wird gerendert ...</p>}<div ref={host} /></>}</div>;
+  return <div className="document gp-document">{error ? <p className="reader-error">{error}</p> : <>{loading && <p className="reader-loading">Guitar-Pro-Partitur wird gerendert ...</p>}<div ref={host} className="gp-host" /></>}</div>;
 }
