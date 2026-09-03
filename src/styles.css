@@ -229,19 +229,14 @@ select {
 .reader-nav {
   display: grid;
   width: 100%;
-  grid-template-columns: 1fr auto auto 1fr;
+  grid-template-columns: auto auto;
+  justify-content: start;
   align-items: center;
   gap: 10px;
 }
 .reader-version {
   font: 500 12px monospace;
   color: #222;
-}
-.reader-nav button:first-child {
-  justify-self: start;
-}
-.reader-nav button:last-child {
-  justify-self: end;
 }
 .reader-controls strong {
   flex: 1;
