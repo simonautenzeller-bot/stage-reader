@@ -5,5 +5,4 @@
 	<path d="M174 156h164M174 356h164" stroke="#3f5542" stroke-width="14" stroke-linecap="round" opacity=".28"/>
 	<path d="M214 207v112a25 25 0 1 1-14-22v-82zm70-18v106a25 25 0 1 1-14-22v-76z" fill="#3f5542"/>
 	<path d="M214 215l70-18" stroke="#3f5542" stroke-width="10" stroke-linecap="round"/>
-	<path d="M338 184v126a24 24 0 1 1-14-21V184z" fill="#3f5542"/>
 </svg>
