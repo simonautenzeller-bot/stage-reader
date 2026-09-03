@@ -1,1 +1,8 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="192" height="192" viewBox="0 0 192 192"><rect width="192" height="192" rx="28" fill="#111315"/><path d="M39 61h114M39 96h114M39 131h114" stroke="#657267" stroke-width="4" stroke-linecap="round"/><path d="M119 42v82.5a21 21 0 1 1-12-19V61l45-10v65.5a21 21 0 1 1-12-19V42z" fill="#edf0eb"/><path d="M119 61l33-10" stroke="#b9e5c1" stroke-width="7" stroke-linecap="round"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="192" height="192" viewBox="0 0 512 512" role="img" aria-label="Stage Reader">
+	<circle cx="256" cy="256" r="220" fill="#6f8f72"/>
+	<circle cx="256" cy="256" r="214" fill="none" stroke="#3f5542" stroke-width="12"/>
+	<path d="M158 102h196a28 28 0 0 1 28 28v252a28 28 0 0 1-28 28H158a28 28 0 0 1-28-28V130a28 28 0 0 1 28-28z" fill="#f5f5ef"/>
+	<path d="M174 156h164M174 356h164" stroke="#3f5542" stroke-width="14" stroke-linecap="round" opacity=".28"/>
+	<path d="M292 164v126a36 36 0 1 1-20-32V196l82-18v100a36 36 0 1 1-20-32v-94z" fill="#3f5542"/>
+	<path d="M292 196l62-14" stroke="#6f8f72" stroke-width="15" stroke-linecap="round"/>
+</svg>
