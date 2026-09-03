@@ -1,7 +1,7 @@
 import Dexie, { type Table } from 'dexie';
 import type { Setlist, Settings, Song } from '../types/models';
 
-export const defaultSettings: Settings = { id: 'global', appTheme: 'dark', documentTheme: 'white', offsetStep: 50, reducedMotion: false };
+export const defaultSettings: Settings = { id: 'global', appTheme: 'light', documentTheme: 'white', offsetStep: 50, reducedMotion: false };
 class StageReaderDatabase extends Dexie {
   songs!: Table<Song, string>;
   setlists!: Table<Setlist, string>;

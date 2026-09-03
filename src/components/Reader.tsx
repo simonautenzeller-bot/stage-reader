@@ -6,7 +6,7 @@ import type { DisplayMode, NotationMode, Setlist, Song } from '../types/models';
 import { PdfView } from './PdfView';
 import { GuitarProView } from './GuitarProView';
 
-const readerVersion = 'v2026.09.03.2';
+const readerVersion = 'v2026.09.03.3';
 
 export function Reader() {
   const { id } = useParams(); const navigate = useNavigate(); const [searchParams] = useSearchParams(); const [song, setSong] = useState<Song>(); const [setlist, setSetlist] = useState<Setlist>(); const [pages, setPages] = useState(1); const [menu, setMenu] = useState(true); const [documentTheme, setDocumentTheme] = useState('white'); const [offsetStep, setOffsetStep] = useState(50); const [tracks, setTracks] = useState<{ index: number; name: string; program: number }[]>([]); const container = useRef<HTMLDivElement>(null); const header = useRef<HTMLElement>(null); const pointer = useRef<{ x: number; y: number; multi: boolean } | undefined>(undefined);

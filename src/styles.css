@@ -184,7 +184,8 @@ select {
 .reader {
   height: 100vh;
   overflow: auto;
-  background: #101311;
+  background: #f7f7f2;
+  color: #111;
   touch-action: pan-y pinch-zoom;
 }
 .reader-menu {
@@ -196,8 +197,24 @@ select {
   align-items: center;
   gap: 10px;
   padding: 10px max(16px, env(safe-area-inset-left));
-  background: #111315;
-  border-bottom: 1px solid #414944;
+  background: #fff;
+  border-bottom: 2px solid #222;
+}
+.reader button {
+  border-color: #333;
+  background: #fff;
+  color: #111;
+}
+.reader button:hover,
+.reader button.selected {
+  border-color: #111;
+  background: #eee;
+}
+.reader select,
+.reader input {
+  background: #fff;
+  color: #111;
+  border-color: #333;
 }
 .reader-controls {
   display: flex;
@@ -218,7 +235,7 @@ select {
 }
 .reader-version {
   font: 500 12px monospace;
-  color: #b9e5c1;
+  color: #222;
 }
 .reader-nav button:first-child {
   justify-self: start;
@@ -253,7 +270,8 @@ select {
 }
 canvas {
   display: block;
-  box-shadow: 0 2px 18px #0008;
+  box-shadow: none;
+  border: 1px solid #bbb;
   max-width: calc(100vw - 40px);
   height: auto !important;
 }
