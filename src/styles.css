@@ -9,6 +9,41 @@
   background: #edf0eb;
   color-scheme: light;
 }
+:root[data-theme='light'] button {
+  border-color: #536158;
+  background: #f8faf6;
+  color: #162018;
+}
+:root[data-theme='light'] button:hover,
+:root[data-theme='light'] button.selected {
+  border-color: #162018;
+  background: #dfe7dc;
+  color: #162018;
+}
+:root[data-theme='light'] input,
+:root[data-theme='light'] select {
+  border-color: #536158;
+  background: #f8faf6;
+  color: #162018;
+}
+:root[data-theme='light'] .primary {
+  border-color: #3f5542;
+  background: #3f5542;
+  color: #fff;
+}
+:root[data-theme='light'] .danger {
+  border-color: #8a332b;
+  color: #8a332b;
+}
+:root[data-theme='light'] .eyebrow,
+:root[data-theme='light'] .file-type {
+  color: #3f5542;
+}
+:root[data-theme='light'] .song p,
+:root[data-theme='light'] .setlist span,
+:root[data-theme='light'] .settings p {
+  color: #536158;
+}
 :root[data-theme='system'] {
   color-scheme: light dark;
 }
