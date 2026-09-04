@@ -287,6 +287,16 @@ select {
 .reader-controls input {
   width: 100px;
 }
+.zoom-control {
+  white-space: nowrap;
+}
+.zoom-control input[type='range'] {
+  width: 120px;
+}
+.zoom-percent {
+  width: 70px;
+  text-align: right;
+}
 .document {
   min-height: 100%;
   padding: 20px;
